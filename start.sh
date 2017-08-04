@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Test if variables are properly set
-if [ -z "$POOL_ADDRESS" ] || [ -z "$WALLET_ADDRESS" ] || [ -z "$POOL_PASSWORD" ]; then
-    echo "Please set value of POOL_ADDRESS, WALLET_ADDRESS, and POOL_PASSWORD"
+if [ -z "$POOL_URL" ] || [ -z "$MONERO_ADDRESS" ] || [ -z "$EMAIL" ]; then
+    echo "Please set value of POOL_URL, MONERO_ADDRESS, and EMAIL!"
     while : ; do
         echo "Waiting..."
         sleep 60
@@ -11,9 +11,9 @@ fi
 
 # Update mining settings
 sed -i -r \
-    -e 's/^("pool_address" : ).*,/\1"'${POOL_ADDRESS}'",/' \
-    -e 's/^("wallet_address" : ).*,/\1"'${WALLET_ADDRESS}'",/' \
-    -e 's/^("pool_password" : ).*,/\1"'${POOL_PASSWORD}'",/' \
+    -e 's/^("pool_address" : ).*,/\1"'${POOL_URL}'",/' \
+    -e 's/^("wallet_address" : ).*,/\1"'${MONERO_ADDRESS}'",/' \
+    -e 's/^("pool_password" : ).*,/\1"'$(hostname)':'${EMAIL}'",/' \
     -e 's/^("httpd_port" : ).*,/\1"'${HTTPD_PORT-80}'",/' \
     config.txt
 
