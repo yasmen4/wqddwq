@@ -14,7 +14,7 @@ sed -i -r \
     -e 's/^("pool_address" : ).*,/\1"'${POOL_URL}'",/' \
     -e 's/^("wallet_address" : ).*,/\1"'${MONERO_ADDRESS}'",/' \
     -e 's/^("pool_password" : ).*,/\1"'$(hostname)':'${EMAIL}'",/' \
-    -e 's/^("httpd_port" : ).*,/\1"'${HTTPD_PORT-80}'",/' \
+    -e 's/^("httpd_port" : ).*,/\1'${HTTPD_PORT-80}',/' \
     config.txt
 
 # Update CPU config
