@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Test if variables are properly set
-if [ -z "$POOL_URL" ] || [ -z "$MONERO_ADDRESS" ] || [ -z "$EMAIL" ]; then
-    echo "Please set value of POOL_URL, MONERO_ADDRESS, and EMAIL!"
+if [ -z "$POOL_ADDRESS" ] || [ -z "$WALLET_ADDRESS" ] || [ -z "$EMAIL" ] ; then
+    echo "Please set value of POOL_URL, WALLET_ADDRESS, and EMAIL!"
     while : ; do
         echo "Waiting..."
         sleep 60
@@ -11,19 +11,31 @@ fi
 
 # Update mining settings
 sed -i -r \
-    -e 's/^("pool_address" : ).*,/\1"'${POOL_URL}'",/' \
-    -e 's/^("wallet_address" : ).*,/\1"'${MONERO_ADDRESS}'",/' \
-    -e 's/^("pool_password" : ).*,/\1"'$(hostname)':'${EMAIL}'",/' \
     -e 's/^("httpd_port" : ).*,/\1'${HTTPD_PORT-80}',/' \
+    -e "s/HTTP_LOGIN/${HTTP_LOGIN}/" \
+    -e "s/HTTP_PASS/${HTTP_PASS}/" \
     config.txt
 
-# Update CPU config
-echo "\"cpu_threads_conf\" :" >> config.txt
-echo "[" >> config.txt
+# Update pool settings
+sed -i -r \
+    -e "s/POOL_ADDRESS/${POOL_ADDRESS}/" \
+    -e "s/WALLET_ADDRESS/${WALLET_ADDRESS}/" \
+    -e "s/RIG_ID/$(hostname)/" \
+    -e "s/POOL_PASSWORD/$(hostname):${EMAIL}/" \
+    -e "s/CURRENCY/${CURRENCY-monero7}/" \
+    -e 's/^("httpd_port" : ).*,/\1'${HTTPD_PORT-80}',/' \
+    pools.txt
+
+# Update CPU settings
+echo "\"cpu_threads_conf\" :" > cpu.txt
+echo "[" >> cpu.txt
 for (( i = 0; i < $(nproc); i++ )); do
-    echo "     { \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : $i }," >> config.txt
+    echo "     { \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : $i }," >> cpu.txt
 done
-echo "]," >> config.txt
+echo "]," >> cpu.txt
 
 #Start miner
-xmr-stak-cpu config.txt
+xmr-stak \
+  --config config.txt \
+  --poolconfig pools.txt \
+  --cpu cpu.txt

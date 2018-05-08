@@ -15,13 +15,13 @@ RUN apk add --no-cache \
       coreutils \
       git
 
-ENV XMR_STAK_CPU_VERSION v1.3.0-1.5.0
+ENV XMR_STAK_VERSION 2.4.3
 
-RUN    git clone https://github.com/fireice-uk/xmr-stak-cpu.git \
-    && cd xmr-stak-cpu \
-    && git checkout -b build ${XMR_STAK_CPU_VERSION} \
-    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
-    && cmake -DCMAKE_LINK_STATIC=ON . \
+RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
+    && cd xmr-stak \
+    && git checkout -b build ${XMR_STAK_VERSION} \
+    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
+    && cmake -DCMAKE_LINK_STATIC=ON -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF . \
     && make -j$(nproc)
 
 ###
@@ -38,7 +38,7 @@ RUN apk add --no-cache \
       hwloc@testing \
       coreutils
 
-COPY --from=build /usr/local/src/xmr-stak-cpu/bin/xmr-stak-cpu /usr/local/bin/xmr-stak-cpu
+COPY --from=build /usr/local/src/xmr-stak/bin/xmr-stak /usr/local/bin/xmr-stak
 COPY config.txt ./
 COPY start.sh ./
 
