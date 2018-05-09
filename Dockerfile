@@ -21,7 +21,7 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout -b build ${XMR_STAK_VERSION} \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
-    && cmake -DCMAKE_LINK_STATIC=ON -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF . \
+    && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF . \
     && make -j$(nproc)
 
 ###
@@ -33,6 +33,7 @@ WORKDIR /usr/src/app
 
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> //etc/apk/repositories
 RUN apk add --no-cache \
+      libstdc++ \
       libmicrohttpd \
       openssl \
       hwloc@testing \
