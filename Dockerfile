@@ -18,7 +18,7 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout -b build ${XMR_STAK_VERSION} \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
-    && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DCMAKE_CXX_FLAGS="-march=x86-64" . \
+    && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DCMAKE_CXX_FLAGS="-march=x86-64 -mtune=x86-64" . \
     && make -j$(nproc) \
     && cp bin/xmr-stak /usr/local/bin/
 
