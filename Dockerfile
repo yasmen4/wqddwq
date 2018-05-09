@@ -24,7 +24,7 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
     && cmake -DCMAKE_LINK_STATIC=ON -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF . \
     && make -j$(nproc) \
     && mkdir -p /usr/local/bin \
-    && cp bin/xmr-stak /usr/local/bin/xmr-stack
+    && cp bin/xmr-stak /usr/local/bin/xmr-stak
 
 COPY configs/* ./
 COPY start.sh ./
