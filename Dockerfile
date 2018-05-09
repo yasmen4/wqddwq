@@ -39,7 +39,7 @@ RUN apk add --no-cache \
       coreutils
 
 COPY --from=build /usr/local/src/xmr-stak/bin/xmr-stak /usr/local/bin/xmr-stak
-COPY config.txt ./
+COPY configs/* ./
 COPY start.sh ./
 
 CMD ["bash", "start.sh"]
