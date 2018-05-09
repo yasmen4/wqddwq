@@ -2,7 +2,7 @@
 
 # Test if variables are properly set
 if [ -z "$POOL_ADDRESS" ] || [ -z "$WALLET_ADDRESS" ] || [ -z "$EMAIL" ] ; then
-    echo "Please set value of POOL_URL, WALLET_ADDRESS, and EMAIL!"
+    echo "Please set value of POOL_ADDRESS, WALLET_ADDRESS, and EMAIL!"
     while : ; do
         echo "Waiting..."
         sleep 60
