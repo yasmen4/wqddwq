@@ -21,8 +21,9 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout -b build ${XMR_STAK_VERSION} \
     && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
-    && cmake -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DCMAKE_C_FLAGS="-mno-avx" -DCMAKE_CXX_FLAGS="-mno-avx" . \
-    && make -j$(nproc)
+    && cmake -DCMAKE_LINK_STATIC=ON -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DCMAKE_C_FLAGS="-mno-avx" -DCMAKE_CXX_FLAGS="-mno-avx" . \
+    && make -j$(nproc) \
+    && strip bin/xmr-stak
 
 ###
 # Deployed image
