@@ -1,7 +1,7 @@
 ###
 # Build image
 ###
-FROM resin/intel-nuc-alpine:edge AS build
+FROM resin/intel-nuc-alpine:3.7 AS build
 
 WORKDIR /usr/local/src
 
@@ -27,7 +27,7 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
 ###
 # Deployed image
 ###
-FROM resin/intel-nuc-alpine:edge
+FROM resin/intel-nuc-alpine:3.7
 
 WORKDIR /usr/src/app
 
