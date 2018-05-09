@@ -25,4 +25,6 @@ RUN    git clone https://github.com/fireice-uk/xmr-stak.git \
 COPY configs/* ./
 COPY start.sh ./
 
+RUN apk add --no-cache strace
+
 CMD ["bash", "start.sh"]
