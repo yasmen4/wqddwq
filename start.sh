@@ -39,3 +39,6 @@ xmr-stak \
   --config config.txt \
   --poolconf pools.txt \
   --cpu cpu.txt
+
+#If miner exits, wait to be debugged
+while : ; do echo "Idling..."; sleep 3600; done
