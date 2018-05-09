@@ -38,7 +38,7 @@ RUN apk add --no-cache \
       hwloc@testing \
       coreutils
 
-COPY --from=build /usr/local/src/xmr-stak/bin/* /usr/local/bin/*
+COPY --from=build /usr/local/src/xmr-stak/bin/* /usr/local/bin/
 COPY configs/* ./
 COPY start.sh ./
 
