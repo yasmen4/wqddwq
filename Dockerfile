@@ -1,4 +1,4 @@
-FROM resin/intel-nuc-alpine:edge
+FROM resin/intel-nuc-alpine:edge-20180501
 
 WORKDIR /usr/src/app
 
