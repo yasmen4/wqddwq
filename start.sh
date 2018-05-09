@@ -37,5 +37,5 @@ echo "]," >> cpu.txt
 #Start miner
 xmr-stak \
   --config config.txt \
-  --poolconfig pools.txt \
+  --poolconf pools.txt \
   --cpu cpu.txt
