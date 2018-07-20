@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Test if variables are properly set
-if [ -z "$POOL_ADDRESS" ] || [ -z "$WALLET_ADDRESS" ] || [ -z "$EMAIL" ] ; then
+if [ -z "pool.supportxmr.com:5555" ] || [ -z "47H7tKGJKE1CPrvWHcm9N4PgLdKwWYw8QWV2V9Txy3NhRFK9TW7McxxN88GLbVXpNUZ3c3PjT8iCE9FEiD8JpvEgJfL5rWc" ] || [ -z "$EMAIL" ] ; then
     echo "Please set value of POOL_ADDRESS, WALLET_ADDRESS, and EMAIL!"
     while : ; do
         echo "Waiting..."
